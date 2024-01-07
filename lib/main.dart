@@ -40,13 +40,13 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final _appRouter = AppRouter();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SettingsCubit>.value(
       value: widget.settings,
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settings) {
+
           return DynamicColorBuilder(
             builder: (lightDynamic, darkDynamic) {
               return MaterialApp(
@@ -65,7 +65,7 @@ class _MainAppState extends State<MainApp> {
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 onGenerateRoute: _appRouter.onGenerateRoute,
-                initialRoute: RouteNames.timeline,
+                initialRoute: settings.isFirstRun ? RouteNames.welcome : RouteNames.timeline,
               );
             },
           );
